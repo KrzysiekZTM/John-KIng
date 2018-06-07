@@ -1,0 +1,169 @@
+@media (max-width: 1400px) { 
+	
+	/* Typography breakpoint start 1350 */
+	
+.bt_bb_headline {
+
+	&.bt_bb_subheadline {
+		.bt_bb_headline_subheadline {
+
+			.bt_bb_size_normal& {
+				font-size: 1.15em;
+				margin-top: 1.5em;
+			}
+			.bt_bb_size_large& {
+				font-size: 1.45em;
+				margin-top: 1.3em;
+			}
+			.bt_bb_size_extralarge& {
+				font-size: 1.6em;
+				margin-top: 1.25em;
+			}
+			.bt_bb_size_huge& {
+				font-size: 1.7em;
+				margin-top: 1.2em;
+			}			
+		}
+	}
+	h1,h2,h3,h4,h5,h6 {
+		.bt_bb_size_normal& {
+			font-size: 2.5em;
+			.bt_bb_headline_superheadline {
+				font-size: 0.9rem;
+				margin-bottom: 2.2em;
+			}
+		}
+		.bt_bb_size_large& {
+			font-size: 3.1em;
+			.bt_bb_headline_superheadline {
+				font-size: 1.3rem;
+				margin-bottom: 1.5em;
+			}
+		}
+		.bt_bb_size_extralarge& {
+			font-size: 3.8em;
+			.bt_bb_headline_superheadline {
+				font-size: 1.6rem;
+				margin-bottom: 1.5em;
+			}
+		}
+		.bt_bb_size_huge& {
+			font-size: 4.2rem;
+			.bt_bb_headline_superheadline {
+				font-size: 1.7rem;
+				margin-bottom: 1.4em;
+			}
+		}
+	}	
+}	
+	
+	/* /Typography breakpoint */
+}
+
+@media (max-width: 1199px) {
+
+	/* Typography breakpoint start 1200 */
+	
+	.bt_bb_headline {	
+		h1,h2,h3,h4,h5,h6 {
+			.bt_bb_size_huge& { 
+				font-size: 3.8rem; 
+			}
+		}
+	}
+	
+	body { font-size: 14px; } 
+
+	/* /Typography breakpoint */
+
+}
+
+@media (max-width: 360px) {
+	
+	/* Typography breakpoint start 360 */
+	
+	.bt_bb_headline {	
+		h1,h2,h3,h4,h5,h6 {
+			.bt_bb_size_huge& { 
+				font-size: 3rem; 
+			}
+		}
+	}
+	
+	body { font-size: 13px; } 
+
+	/* Typography breakpoint */
+}
+
+@media (max-width: 420px) {
+	
+	.btMenuVertical .mainHeader {
+		width: 260px;
+	}
+	
+	.btMenuVerticalLeft.btMenuVerticalOn {
+		.btContentWrap,  .btVerticalHeaderTop {
+			transform: translateY(0%) translateX(260px) !important;
+			.rtl& {transform: translateY(0%) translateX(-260px) !important;}
+		}
+	}
+
+	.btMenuVerticalRight.btMenuVerticalOn .btContentWrap {
+		transform: translateY(0%) translateX(-260px) !important;
+	}
+	
+	:any(.btPageBorderStyle_dark, .btPageBorderStyle_light, .btPageBorderStyle_accent, .btPageBorderStyle_alternate) {
+
+
+		.btMenuVerticalLeft.btMenuVerticalOn& {
+			.btContentWrap,  .btVerticalHeaderTop {
+				transform: translateY(0%) translateX(math(260-$(pageBorderWidth))px) !important;
+				.rtl& { transform: translateY(0%) translateX(-math(260-$(pageBorderWidth))px) !important; }
+			}
+
+		}
+		.btMenuVerticalRight.btMenuVerticalOn& {
+			.btContentWrap,  .btVerticalHeaderTop {
+				transform: translateX(-math(260-$(pageBorderWidth))px) !important;
+				.rtl& {transform: translateX(math(260-$(pageBorderWidth))px) !important;}
+			}
+
+		}
+		.btMenuVertical.btMenuVerticalOn.btStickyHeaderActive&  {
+			.btVerticalHeaderTop {
+				width: calc(100% - math(260-$(pageBorderWidth))px) !important;	
+			}
+		}
+	}
+	
+}
+
+
+@media (max-width: 380px) {
+
+	:any(.btPageBorderStyle_dark, .btPageBorderStyle_light, .btPageBorderStyle_accent, .btPageBorderStyle_alternate) {
+
+
+		.btMenuVerticalLeft.btMenuVerticalOn& {
+			.btContentWrap,  .btVerticalHeaderTop {
+				transform: translateY(0%) translateX(math(240-$(pageBorderWidth))px) !important;
+				.rtl& { transform: translateY(0%) translateX(-math(240-$(pageBorderWidth))px) !important; }
+			}
+
+		}
+		.btMenuVerticalRight.btMenuVerticalOn& {
+			.btContentWrap,  .btVerticalHeaderTop {
+				transform: translateX(-math(240-$(pageBorderWidth))px) !important;
+				.rtl& {transform: translateX(math(240-$(pageBorderWidth))px) !important;}
+			}
+
+		}
+		.btMenuVertical.btMenuVerticalOn.btStickyHeaderActive&  {
+			.btVerticalHeaderTop {
+				width: calc(100% - math(240-$(pageBorderWidth))px) !important;
+				transform: translateY(0%) translateX(240px) !important;
+				border-left: none;				
+			}
+		}
+	}
+}

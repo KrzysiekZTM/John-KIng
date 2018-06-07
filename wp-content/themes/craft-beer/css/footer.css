@@ -1,0 +1,121 @@
+/* Footer copyright */
+
+.btSiteFooter  {
+	font-size: 0.9em;
+	@fragment btClear;
+	.copyLine {
+		margin-bottom: 0;
+	}
+}
+
+.btSiteFooterWidgets {
+	 box-shadow: 0 0 20px 0 rgba(0,0,0,.15);
+	 padding-top: 4em;
+	#boldSiteFooterWidgetsRow{
+		margin-top: 1em;
+		justify-content: initial;
+		.btBox {
+			background-color: transparent;
+			flex: 0 0 25%;
+			.btImage img {
+				margin: initial;
+			}
+		}
+	}
+}
+
+.btSiteFooter {
+	.btSiteFooterCopyMenu .port div {
+		.btFooterCopy, .btFooterMenu {
+			padding-top: 2em;
+			padding-bottom: 2em;
+		}
+		.btFooterMenu {
+			.menu {
+				margin: 0 -1em;
+				padding: 0;
+				list-style: none;
+				li {
+					display: inline-block;
+					margin: 0 1em;
+					padding: 0;
+				}
+				
+			}
+			text-align: right;
+			.rtl & {
+				text-align: left;
+			}
+			
+		}
+		.btFooterCopy {
+			text-align: left;
+			.rtl & {
+				text-align: right;
+			}
+		}	
+	}
+	> .btSiteFooterWidgets > .port:before  {
+		content: '';
+		clear: both;
+		width: 100%;
+		display: block;
+		height: 4px; 
+		background-color: $(darkFontColor);
+	}	
+}
+
+:lightSkinSelector {
+	.btSiteFooterWidgets  {
+		background: $(lightBgColor);
+	}
+	.btSiteFooter  {
+		background: $(darkFontColor);
+		.port:before  {
+			background-color: $(lightFontColor);
+		}		
+	}
+}
+
+:darkSkinSelector {
+	.btSiteFooterWidgets  {
+		background: $(darkBgColor);
+	}
+	.btSiteFooter  {
+		background: $(darkBgColor);
+		.port:before  {
+			background-color: $(accentColor);
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	.btSiteFooter .btSiteFooterCopyMenu .port {
+		> div {
+			display: block;
+			.btFooterCopy {
+				padding-bottom: 1em;
+				text-align: center;
+			}
+			.btFooterMenu {
+				padding-top: 1em;
+				text-align: center;
+			}
+		}
+	}
+
+	.btSiteFooterWidgets #boldSiteFooterWidgetsRow .btBox {
+		flex: 0 0 50%;
+	}
+
+	.btSiteFooterWidgets .btIconWidgetContent {
+		width: 100%;
+		ul.cart_list {width: 100%;}
+	}
+}
+
+@media (max-width: 468px) { 
+	.btSiteFooterWidgets #boldSiteFooterWidgetsRow .btBox {
+		flex: 0 0 100%;
+	}
+}

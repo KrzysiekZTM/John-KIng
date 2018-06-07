@@ -1,0 +1,16 @@
+/* RTL support */
+
+body.rtl {
+	direction: rtl;
+	unicode-bidi: embed;
+	&.btMenuHorizontal .topTools .btIconWidget:not(:first-child), 
+	&.btMenuHorizontal .topBarInMenu .btIconWidget:not(:first-child) {
+		margin-left: 0em;
+		margin-right: .5em;
+	}
+	.rowItem {
+		float: right;
+	}
+}
+
+

@@ -1,0 +1,139 @@
+
+/* Article Headline style */
+
+.btArticleHeadline .bt_bb_headline_content {
+    text-transform: uppercase;
+}
+
+/* Custom inner classes */
+
+.btInnerRowKeepWidth {
+	max-width: 800px;
+	.bt_bb_column_gap_0 & {
+		padding: 0 100px;
+	}
+	.btMoveRight& {
+		float: right;
+	}
+}
+.btSectionKeepWidth1200 {
+	max-width: 1200px; 
+	margin: auto;
+}
+
+.btSectionKeepWidth1400 {
+	max-width: 1400px; 
+	margin: auto;
+}
+
+.btSectionKeepWidth1600 {
+	max-width: 1600px; 
+	margin: auto;
+}
+
+.btDarkSeparator {
+	border-bottom: 1px solid #4c4c4c !important;
+}
+
+/* Page border */
+
+@set pageBorderWidth 20;
+
+:any(.btPageBorderStyle_dark, .btPageBorderStyle_light, .btPageBorderStyle_accent, .btPageBorderStyle_alternate) {
+	body& {
+		border:	$(pageBorderWidth)px solid black;
+	}
+	.btMenuVerticalLeft& .mainHeader {
+		border:	$(pageBorderWidth)px solid black;
+	}
+	.btMenuVerticalRight& .mainHeader {
+		border:	$(pageBorderWidth)px solid black;
+	}
+	.btMenuHorizontal.btStickyHeaderActive& .mainHeader, .btMenuVertical.btStickyHeaderActive& .btVerticalHeaderTop {
+		box-shadow: none;
+		border: $(pageBorderWidth)px solid black;
+		border-bottom: none;
+	}
+	.btMenuVerticalLeft.btMenuVerticalOn& {
+		.btContentWrap,  .btVerticalHeaderTop {
+			transform: translateY(0%) translateX(math($(verticalMenuWidth)-$(pageBorderWidth))px);
+			.rtl& { transform: translateY(0%) translateX(-math($(verticalMenuWidth)-$(pageBorderWidth))px); }
+		}
+		.btVerticalHeaderTop .logo {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+	.btMenuVerticalRight.btMenuVerticalOn& {
+		.btContentWrap,  .btVerticalHeaderTop {
+			transform: translateX(-math($(verticalMenuWidth)-$(pageBorderWidth))px);
+			.rtl& {transform: translateX(math($(verticalMenuWidth)-$(pageBorderWidth))px);}
+		}
+		.btVerticalHeaderTop .logo {
+			opacity: 0;
+		}
+	}
+	.btMenuVertical.btMenuVerticalOn.btStickyHeaderActive&  {
+		.btVerticalHeaderTop {
+			width: calc(100% - math($(verticalMenuWidth)-$(pageBorderWidth))px);	
+		}
+	}
+}
+
+
+
+body.btBoxedPage:any(.btPageBorderStyle_dark, .btPageBorderStyle_light, .btPageBorderStyle_accent, .btPageBorderStyle_alternate) {
+	.btPageWrap {
+		max-width: 100%;
+		box-shadow: none;
+		margin: 0 auto;
+		border-bottom-left-radius: 0%;
+    	border-bottom-right-radius: 0%;
+	}		
+}
+
+@media (min-width: 1400px) { 
+	body.btBoxedPage:any(.btPageBorderStyle_dark, .btPageBorderStyle_light, .btPageBorderStyle_accent, .btPageBorderStyle_alternate) {
+		.btContent {
+			padding: 0 $(logoHeight)px;
+		}
+	}
+	body:not(.btBoxedMenu):any(.btPageBorderStyle_dark, .btPageBorderStyle_light, .btPageBorderStyle_accent, .btPageBorderStyle_alternate) {
+		.mainHeader {
+			padding: 0 $(logoHeight)px;
+		}		
+	}
+}
+
+.btPageBorderStyle_light {
+	body& {
+		border-color: $(lightBgColor);
+	}
+	.btMenuHorizontal.btStickyHeaderActive.btStickyHeaderOpen& .mainHeader, .btMenuVertical.btStickyHeaderActive.btStickyHeaderOpen& .btVerticalHeaderTop {
+		border-color: $(lightBgColor);
+	}
+}
+
+.btPageBorderStyle_accent {
+	body& {
+		border-color: $(accentColor);
+	}
+	.btMenuHorizontal.btStickyHeaderActive.btStickyHeaderOpen& .mainHeader, .btMenuVertical.btStickyHeaderActive.btStickyHeaderOpen& .btVerticalHeaderTop {
+		border-color: $(accentColor);
+	}
+}
+
+.btPageBorderStyle_alternate {
+	body& {
+		border-color: $(alternatColor);
+	}
+	.btMenuHorizontal.btStickyHeaderActive.btStickyHeaderOpen& .mainHeader, .btMenuVertical.btStickyHeaderActive.btStickyHeaderOpen& .btVerticalHeaderTop {
+		border-color: $(alternatColor);
+	}
+}
+ 
+ /* IE Inner Column - Tab */
+.bt_bb_tabs .bt_bb_row_inner .bt_bb_column_inner .bt_bb_column_inner_content {
+    width: 100%;
+    height: 100%;
+}

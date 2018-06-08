@@ -19,15 +19,3 @@ function cc_mime_types($mimes) {
   return $mimes;
 }
 add_filter('upload_mimes', 'cc_mime_types');
-
-
-
-//Add in text after price to certain products
-function themeprefix_custom_price_message( $price ) {
-
-	global $post;
-	$textafter = ' netto'; //add your text
-	return $price . '<span class="price-description">' . $textafter . '</span>';
-
-}
-add_filter( 'woocommerce_get_price_html', 'themeprefix_custom_price_message' );

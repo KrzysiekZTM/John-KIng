@@ -163,6 +163,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 			 * @hooked woocommerce_cart_totals - 10
 			 */
 			do_action( 'woocommerce_cart_collaterals' );
+			get_template_part('../../inc/transport-table-modal')
 		?>
 	</div>
 </div>

@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $custom_shipingInfo = "Zamówienia składane w naszym systemie wymagają ręcznej autoryzacji oraz przeliczenia kosztu transportu, który ustalany jest indywidualnie. Skotnaktujemy się z Tobą w przeciągu 24 godzin";
-$custom_delivery_table = "<span>Zobacz tabelę kosztów dostawy.</span>";
+$custom_delivery_table = "<span modal-modal=\"open\" data-modal-open_id=\"transport-table\" >Zobacz tabelę kosztów dostawy.</span>";
 ?>
 <div class="cart_totals <?php echo ( WC()->customer->has_calculated_shipping() ) ? 'calculated_shipping' : ''; ?>">
 

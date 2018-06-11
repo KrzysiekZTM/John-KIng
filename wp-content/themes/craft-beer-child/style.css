@@ -284,3 +284,68 @@ ul.woof_list{
   -moz-box-shadow: 0px 6px 6px 0px rgba(0,0,0,0.1);
   box-shadow: 0px 6px 6px 0px rgba(0,0,0,0.1);
 }
+
+/* Modal */
+
+.modal-window{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+.modal-content{
+    position: relative;
+    left: -50%;
+    top: -50%;
+    width: 1000px;
+    background-color: white;
+    padding-left: 2em;
+    padding-right: 2em;
+    -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.1);
+}
+
+
+
+.modal-window_header h5{
+    font-size: 2em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1em 0 1em 0;
+}
+
+.modal-window_footer{
+    padding: 1em;
+}
+
+.modal-window_footer:after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.modal-window_footer button{
+    float: right;
+    font-family: Roboto;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    background-color: transparent;
+    border: 1px solid #B28564;
+    padding: 1em;
+    width: 100%;
+}
+
+.modal-window_footer button:hover{
+    color: #B28564;
+}
+#overlay{
+    position: fixed;
+    top: 0;
+    left:0;
+    background-color: rgba(0,0,0, .7);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}

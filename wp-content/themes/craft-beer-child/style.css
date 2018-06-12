@@ -349,3 +349,125 @@ ul.woof_list{
     height: 100vh;
     z-index: 1;
 }
+
+/* Single product */
+
+div.product div.summary{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.product div.summary .bt_bb_headline_superheadline{
+    margin-bottom: 0 !important;
+}
+
+div.product div.summary .bt_bb_headline{
+    margin-bottom: 10px !important;
+}
+
+div.product div.summary .price{
+    font-size: 2em !important;
+    margin-bottom: 10px;
+}
+
+div.product div.summary .woocommerce-price-suffix{
+    font-size: .6em;
+}
+
+
+form.cart{
+    display:flex !important;
+}
+
+form.cart button[name="add-to-cart"]{
+    flex-grow: 100;
+}
+
+form.cart button[name="add-to-cart"]:hover{
+    background-color: #B28564 !important;
+    color: white !important;
+}
+
+div.product div.images .woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:first-child{
+  border: none !important
+}
+
+.related h2{
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.4em;
+}
+
+.product-dsc, .product-info{
+    margin-top: 30px;
+}
+
+.product-description{
+  padding-top: 50px !important;
+  padding-bottom: 100px !important;
+}
+
+.product-dsc h3, .product-info h3{
+    text-transform: uppercase;
+    font-size: 1.3em;
+}
+
+.all-atributes{
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.single-attribute{
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    width: 400%;
+    margin-bottom: 10px;
+}
+
+.atribute-name{
+    font-family: Roboto;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1em;
+    margin-right: 10px;
+    color: #404040;
+}
+
+.attribute-value{
+    font-family: Roboto Slab;
+    font-size: 1.14em
+}
+
+@media screen and (min-width:430px){
+  .single-attribute{
+    width: 50%;
+  }
+}
+
+@media screen and (min-width:730px){
+  .single-attribute{
+    width: 33%;
+  }
+}
+
+@media screen and (min-width:860px){
+  .single-attribute{
+    width: 25%;
+  }
+}
+
+/* Checkout */
+
+.billing-data-item p, .shipping-data p{
+  margin-bottom: 0;
+}
+
+.woocommerce-additional-fields{
+  margin-top: 50px;
+}

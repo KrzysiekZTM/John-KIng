@@ -1,0 +1,31 @@
+2018-06-11T10:31:20+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function WC_Product::get_attribute(), 0 passed in D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\woocommerce\single-product\tabs\tabs.php on line 48 and exactly 1 expected in D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\abstracts\abstract-wc-product.php:1837
+Stack trace:
+#0 D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\woocommerce\single-product\tabs\tabs.php(48): WC_Product->get_attribute()
+#1 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-core-functions.php(210): include('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1421): wc_get_template('single-product/...')
+#3 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(286): woocommerce_output_product_data_tabs('')
+#4 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters('', Array)
+#5 D:\xampp\htdocs\john-king\wp-includes\plugin.php(453
+
+2018-06-11T11:04:05+00:00 CRITICAL Uncaught Error: Call to a member function post_content() on null in D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\woocommerce\single-product\tabs\tabs.php:66
+Stack trace:
+#0 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-core-functions.php(210): include()
+#1 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1421): wc_get_template('single-product/...')
+#2 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(286): woocommerce_output_product_data_tabs('')
+#3 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters('', Array)
+#4 D:\xampp\htdocs\john-king\wp-includes\plugin.php(453): WP_Hook->do_action(Array)
+#5 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\templates\content-single-product.php(70): do_action('woocommerce_aft...')
+#6 D:\xampp\htdocs\john-king\wp-includes\template.php(690): require('D:\\xampp\\htdocs...')
+#7 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-core
+
+2018-06-11T11:04:16+00:00 CRITICAL Uncaught Error: Call to undefined method WC_Product_Simple::post_content() in D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\woocommerce\single-product\tabs\tabs.php:66
+Stack trace:
+#0 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-core-functions.php(210): include()
+#1 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1421): wc_get_template('single-product/...')
+#2 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(286): woocommerce_output_product_data_tabs('')
+#3 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(310): WP_Hook->apply_filters('', Array)
+#4 D:\xampp\htdocs\john-king\wp-includes\plugin.php(453): WP_Hook->do_action(Array)
+#5 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\templates\content-single-product.php(70): do_action('woocommerce_aft...')
+#6 D:\xampp\htdocs\john-king\wp-includes\template.php(690): require('D:\\xampp\\htdocs...')
+#7 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includ
+

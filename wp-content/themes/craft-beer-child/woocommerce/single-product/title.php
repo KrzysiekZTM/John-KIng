@@ -19,6 +19,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
 global $post, $product;
 
 $cat_count = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
@@ -45,6 +46,7 @@ if ( get_option( 'woocommerce_enable_review_rating' ) !== 'no' ) {
 
 $categories = wp_get_post_terms( $product->get_id(), 'product_cat' );
 $supertitle = boldthemes_get_post_categories( array( 'categories' => $categories ) );
+$supertitleAddon =
 
 $dash = boldthemes_get_option( 'shop_use_dash' );
 if ( $dash != '' ) {

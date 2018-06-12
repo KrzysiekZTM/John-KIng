@@ -15,6 +15,7 @@ add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 
 function my_theme_scripts(){
   wp_enqueue_script('modal', get_stylesheet_directory_uri().'/js/modal.js');
+  wp_enqueue_script('checkout', get_stylesheet_directory_uri().'/js/checkout.js');
 }
 
 add_action( 'wp_enqueue_scripts', 'my_theme_scripts' );
@@ -47,3 +48,31 @@ echo $html;
 }
 
 add_action( 'woocommerce_after_cart', 'my_theme_transport_table_modal' );
+
+function remove_image_zoom_support() {
+    remove_theme_support( 'wc-product-gallery-zoom' );
+}
+add_action( 'wp', 'remove_image_zoom_support', 100 );
+
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+
+function custom_override_checkout_fields( $fields ) {
+    unset($fields['billing']['billing_state']);
+    return $fields;
+}
+
+add_filter( 'woocommerce_order_button_text', 'woo_custom_order_button_text' );
+
+function woo_custom_order_button_text() {
+    return __( 'Zamawiam', 'woocommerce' );
+}
+
+// Redirect users that are not logged include
+
+function check_if_logged_in() {
+    if (!is_user_logged_in()){
+        wp_redirect(wp_login_url());
+        exit;
+    }
+}
+add_action('template_redirect', 'check_if_logged_in');

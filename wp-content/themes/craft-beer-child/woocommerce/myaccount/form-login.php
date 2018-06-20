@@ -29,11 +29,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="u-columns col2-set" id="customer_login">
 
-	<div class="u-column1 col-1">
+	<div class="u-column1 col" id="custom-login">
 
 <?php endif; ?>
 
-		<h2><?php esc_html_e( 'Login', 'woocommerce' ); ?></h2>
+		<h2 class="login-title"><?php esc_html_e( 'Login', 'woocommerce' ); ?></h2>
 
 		<form class="woocommerce-form woocommerce-form-login login" method="post">
 
@@ -57,9 +57,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> <span><?php esc_html_e( 'Remember me', 'woocommerce' ); ?></span>
 				</label>
 			</p>
-			<p class="woocommerce-LostPassword lost_password">
-				<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Lost your password?', 'woocommerce' ); ?></a>
-			</p>
+			<div class="login-options">
+				<div class="login-option">
+					<p class="woocommerce-LostPassword lost_password">
+						<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Lost your password?', 'woocommerce' ); ?></a>
+					</p>
+				</div>
+				<div class="login-option">
+					<p id="open-register" >
+						<?php esc_html_e( 'Nie masz konta? Zarejestruj się', 'woocommerce' ); ?>
+					</p>
+				</div>
+			</div>
 
 			<?php do_action( 'woocommerce_login_form_end' ); ?>
 
@@ -69,9 +78,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	</div>
 
-	<div class="u-column2 col-2">
+	<div class="u-column2 col" id="custom_register" style="display:none;">
 
-		<h2><?php esc_html_e( 'Register', 'woocommerce' ); ?></h2>
+		<h2 class="login-title"><?php esc_html_e( 'Register', 'woocommerce' ); ?></h2>
 
 		<form method="post" class="woocommerce-form woocommerce-form-register register">
 
@@ -108,7 +117,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</p>
 
 			<?php do_action( 'woocommerce_register_form_end' ); ?>
-
+			<p id="open-login">
+				<?php esc_html_e( 'Masz konto? Zaloguj się', 'woocommerce' ); ?>
+			</p>
 		</form>
 
 	</div>

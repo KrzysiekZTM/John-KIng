@@ -37,14 +37,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'woocommerce_before_checkout_billing_form', $checkout ); ?>
 
 	<div class="billing-data">
-		<h4>Dane do faktury VAT <span id="billing-data-edit" style="font-size: .5em; letter-spacing: 0; text-decoration: underline; cursor:pointer">edytuj</span></h4>
+		<h4><?php _e( 'Dane do faktury', 'woocommerce' ); ?><span id="billing-data-edit" style="font-size: .5em; letter-spacing: 0; text-decoration: underline; cursor:pointer">edytuj</span></h4>
 		<div class="billing-data-item">
 			<?php $fields = $checkout->get_checkout_fields( 'billing' );
+			$custom_fields_order = array(
+				"billing_first_name",
+		    "billing_last_name",
+		    "billing_company",
+				"billing_nip",
+		    "billing_address_1",
+		    "billing_address_2",
+		    "billing_city",
+		    "billing_postcode",
+		    "billing_country",
+		    "billing_email",
+		    "billing_phone",
+			);
 				$html ="";
-				foreach($fields as $key => $field){
-					if(isset($field['label'])){
-						$html .= "<p><strong>".$field['label']."</strong>: ".$checkout->get_value($key)."</p>";
-					}	
+				foreach($custom_fields_order as $field){
+					if(isset($fields[$field]['label'])){
+						$html .= "<p><strong>".$fields[$field]['label']."</strong>: ".$checkout->get_value($field)."</p>";
+					}
 				}
 				echo $html;
 			?>

@@ -16,6 +16,9 @@ add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 function my_theme_scripts(){
   wp_enqueue_script('modal', get_stylesheet_directory_uri().'/js/modal.js');
   wp_enqueue_script('checkout', get_stylesheet_directory_uri().'/js/checkout.js');
+  wp_enqueue_script('login', get_stylesheet_directory_uri().'/js/login.js');
+  wp_enqueue_script('menuResize', get_stylesheet_directory_uri().'/js/menu-resize.js');
+
 }
 
 add_action( 'wp_enqueue_scripts', 'my_theme_scripts' );
@@ -70,9 +73,256 @@ function woo_custom_order_button_text() {
 // Redirect users that are not logged include
 
 function check_if_logged_in() {
-    if (!is_user_logged_in()){
-        wp_redirect(wp_login_url());
+    if (!is_user_logged_in() && !is_account_page()){
+        wp_redirect( get_permalink( get_option('woocommerce_myaccount_page_id')) );
         exit;
     }
 }
 add_action('template_redirect', 'check_if_logged_in');
+
+
+function add_logo_to_login(){
+  echo "<div class='login-logo'>";
+  boldthemes_logo( 'header' );
+  echo "</div>";
+  echo '<div class="login-text"><p>';
+  echo esc_html_e('Skep hurtowy jest dostępny tylko dla użytkowników posiadających konto.', 'woocommerce');
+  echo '<br>';
+  echo esc_html_e('Jeśli chcesz z niego kożystać załóż konto i poczekaj na weryfikację.', 'woocommerce');
+  echo '</p></div>';
+}
+
+add_action('woocommerce_before_customer_login_form', 'add_logo_to_login');
+
+
+
+// Our hooked in function - $fields is passed via the filter!
+function add_nip_field( $fields ) {
+  $fields['billing']['billing_nip'] = array(
+    'label'     => __('NIP', 'woocommerce'),
+    'placeholder'   => _x('NIP', 'placeholder', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-wide'),
+    'clear'     => true
+  );
+  return $fields;
+}
+
+function my_custom_checkout_field_display_admin_order_meta($order){
+    echo '<p><strong>'.__('NIP From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_billing_nip', true ) . '</p>';
+}
+
+// Hook in
+add_filter( 'woocommerce_checkout_fields' , 'add_nip_field' );
+
+
+function extra_form_fields() {
+    ?>
+    <p class="form-row form-row-first">
+        <label for="billing_first_name"><?php _e('Imię ', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_first_name" id="billing_first_name" value="<?php if (!empty($_POST['billing_first_name'])) esc_attr_e($_POST['billing_first_name']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_last_name"><?php _e('Nazwisko', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_last_name" id="billing_last_name" value="<?php if (!empty($_POST['billing_last_name'])) esc_attr_e($_POST['billing_last_name']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_company"><?php _e('Firma', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_company" id="billing_company" value="<?php if (!empty($_POST['billing_company'])) esc_attr_e($_POST['billing_company']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_nip"><?php _e('NIP', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_nip" id="billing_nip" value="<?php if (!empty($_POST['billing_nip'])) esc_attr_e($_POST['billing_nip']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_address_1"><?php _e('Adres', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_address_1" id="billing_address_1" value="<?php if (!empty($_POST['billing_address_1'])) esc_attr_e($_POST['billing_address_1']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_address_2"><?php _e('Adres cd.', 'text_domain'); ?></label>
+        <input type="text" class="input-text" name="billing_address_2" id="billing_address_2" value="<?php if (!empty($_POST['billing_address_2'])) esc_attr_e($_POST['billing_address_2']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_city"><?php _e('Miasto', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_city" id="billing_city" value="<?php if (!empty($_POST['billing_city'])) esc_attr_e($_POST['billing_city']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_postcode"><?php _e('Kod pocztowy', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_postcode" id="billing_postcode" value="<?php if (!empty($_POST['billing_postcode'])) esc_attr_e($_POST['billing_postcode']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_country"><?php _e('Kraj', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_country" id="billing_country" value="<?php if (!empty($_POST['billing_country'])) esc_attr_e($_POST['billing_country']); ?>" />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="billing_phone"><?php _e('Nr Telefonu', 'text_domain'); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_phone" id="billing_phone" value="<?php if (!empty($_POST['billing_phone'])) esc_attr_e($_POST['billing_phone']); ?>" />
+    </p>
+
+    <div class="clear"></div>
+    <?php
+}
+
+add_action('woocommerce_register_form_start', 'extra_form_fields');
+
+function custom_validate_user_register_input($username, $email, $validation_errors) {
+    if (isset($_POST['billing_first_name']) && empty($_POST['billing_first_name'])) {
+        $validation_errors->add('billing_first_name_error', __('<strong>Error</strong>: First name is required!', 'text_domain'));
+    }
+
+    if (isset($_POST['billing_last_name']) && empty($_POST['billing_last_name'])) {
+        $validation_errors->add('billing_last_name_error', __('<strong>Error</strong>: Last name is required!.', 'text_domain'));
+    }
+
+    if (isset($_POST['billing_addres_1']) && empty($_POST['billing_addres_1'])) {
+        $validation_errors->add('billing_addres_1_error', __('<strong>Error</strong>: Address is required!.', 'text_domain'));
+    }
+
+    if (isset($_POST['billing_company']) && empty($_POST['billing_company'])) {
+        $validation_errors->add('billing_company_error', __('<strong>Error</strong>: Last name is required!.', 'text_domain'));
+    }
+
+    if (isset($_POST['billing_nip']) && empty($_POST['billing_nip'])) {
+        $validation_errors->add('billing_nip_error', __('<strong>Error</strong>: Last name is required!.', 'text_domain'));
+    }
+
+    if (isset($_POST['billing_city']) && empty($_POST['billing_city'])) {
+        $validation_errors->add('billing_city_error', __('<strong>Error</strong>: Last name is required!.', 'text_domain'));
+    }
+
+    if (isset($_POST['billing_postcode']) && empty($_POST['billing_postcode'])) {
+        $validation_errors->add('billing_postcode_error', __('<strong>Error</strong>: Last name is required!.', 'text_domain'));
+    }
+
+    if (isset($_POST['billing_country']) && empty($_POST['billing_country'])) {
+        $validation_errors->add('billing_country_error', __('<strong>Error</strong>: Last name is required!.', 'text_domain'));
+    }
+
+    if (isset($_POST['billing_phone']) && empty($_POST['billing_phone'])) {
+        $validation_errors->add('billing_phone_error', __('<strong>Error</strong>: Last name is required!.', 'text_domain'));
+    }
+    return $validation_errors;
+}
+
+add_action('woocommerce_register_post', 'custom_validate_user_register_input', 10, 3);
+
+function text_domain_woo_save_reg_form_fields($customer_id) {
+    //First name field
+    if (isset($_POST['billing_first_name'])) {
+        update_user_meta($customer_id, 'first_name', sanitize_text_field($_POST['billing_first_name']));
+        update_user_meta($customer_id, 'billing_first_name', sanitize_text_field($_POST['billing_first_name']));
+        update_user_meta($customer_id, 'shipping_first_name', sanitize_text_field($_POST['billing_first_name']));
+    }
+    //Last name field
+    if (isset($_POST['billing_last_name'])) {
+        update_user_meta($customer_id, 'last_name', sanitize_text_field($_POST['billing_last_name']));
+        update_user_meta($customer_id, 'billing_last_name', sanitize_text_field($_POST['billing_last_name']));
+        update_user_meta($customer_id, 'shipping_last_name', sanitize_text_field($_POST['billing_last_name']));
+    }
+    // Address fields
+    if (isset($_POST['billing_address_1'])) {
+        update_user_meta($customer_id, 'address_1', sanitize_text_field($_POST['billing_address_1']));
+        update_user_meta($customer_id, 'billing_address_1', sanitize_text_field($_POST['billing_address_1']));
+        update_user_meta($customer_id, 'shipping_address_1', sanitize_text_field($_POST['billing_address_1']));
+    }
+    if (isset($_POST['billing_address_2'])) {
+        update_user_meta($customer_id, 'address_2', sanitize_text_field($_POST['billing_address_2']));
+        update_user_meta($customer_id, 'billing_address_2', sanitize_text_field($_POST['billing_address_2']));
+        update_user_meta($customer_id, 'shipping_address_2', sanitize_text_field($_POST['billing_address_2']));
+    }
+    // Company
+    if (isset($_POST['billing_company'])) {
+        update_user_meta($customer_id, 'address_2', sanitize_text_field($_POST['billing_company']));
+        update_user_meta($customer_id, 'billing_company', sanitize_text_field($_POST['billing_company']));
+        update_user_meta($customer_id, 'shipping_company', sanitize_text_field($_POST['billing_company']));
+    }
+    // VAT number
+    if (isset($_POST['billing_nip'])) {
+        update_user_meta($customer_id, 'address_2', sanitize_text_field($_POST['billing_nip']));
+        update_user_meta($customer_id, 'billing_nip', sanitize_text_field($_POST['billing_nip']));
+    }
+    // City and postcode
+    if (isset($_POST['billing_city'])) {
+        update_user_meta($customer_id, 'city', sanitize_text_field($_POST['billing_city']));
+        update_user_meta($customer_id, 'billing_city', sanitize_text_field($_POST['billing_city']));
+        update_user_meta($customer_id, 'shipping_city', sanitize_text_field($_POST['billing_city']));
+    }
+    if (isset($_POST['billing_postcode'])) {
+        update_user_meta($customer_id, 'postcode', sanitize_text_field($_POST['billing_postcode']));
+        update_user_meta($customer_id, 'billing_postcode', sanitize_text_field($_POST['billing_postcode']));
+        update_user_meta($customer_id, 'shipping_postcode', sanitize_text_field($_POST['billing_postcode']));
+    }
+    // Country
+    if (isset($_POST['billing_country'])) {
+        update_user_meta($customer_id, 'country', sanitize_text_field($_POST['billing_country']));
+        update_user_meta($customer_id, 'billing_country', sanitize_text_field($_POST['billing_country']));
+        update_user_meta($customer_id, 'shipping_country', sanitize_text_field($_POST['billing_country']));
+    }
+    // Phone
+    if (isset($_POST['billing_phone'])) {
+        update_user_meta($customer_id, 'phone', sanitize_text_field($_POST['billing_phone']));
+        update_user_meta($customer_id, 'billing_phone', sanitize_text_field($_POST['billing_phone']));
+    }
+}
+
+add_action('woocommerce_created_customer', 'text_domain_woo_save_reg_form_fields');
+
+
+// Reorder Checkout Fields
+add_filter('woocommerce_checkout_fields','reorder_woo_fields');
+
+function reorder_woo_fields($fields) {
+    $fields2['billing']['billing_email'] = $fields['billing']['billing_email'];
+    $fields2['billing']['billing_first_name'] = $fields['billing']['billing_first_name'];
+    $fields2['billing']['billing_last_name'] = $fields['billing']['billing_last_name'];
+    $fields2['billing']['billing_company'] = $fields['billing']['billing_company'];
+    $fields2['billing']['billing_nip'] = $fields['billing']['billing_nip'];
+    $fields2['billing']['billing_country'] = $fields['billing']['billing_country'];
+    $fields2['billing']['billing_address_1'] = $fields['billing']['billing_address_1'];
+    $fields2['billing']['billing_address_2'] = $fields['billing']['billing_address_2'];
+    $fields2['billing']['billing_city'] = $fields['billing']['billing_city'];
+    $fields2['billing']['billing_postcode'] = $fields['billing']['billing_postcode'];
+	  $fields2['billing']['billing_phone'] = $fields['billing']['billing_phone'];
+
+    $fields2['shipping']['shipping_first_name'] = $fields['shipping']['shipping_first_name'];
+    $fields2['shipping']['shipping_last_name'] = $fields['shipping']['shipping_last_name'];
+    $fields2['shipping']['shipping_company'] = $fields['shipping']['shipping_company'];
+    $fields2['shipping']['shipping_country'] = $fields['shipping']['shipping_country'];
+    $fields2['shipping']['shipping_address_1'] = $fields['shipping']['shipping_address_1'];
+    $fields2['shipping']['shipping_address_2'] = $fields['shipping']['shipping_address_2'];
+    $fields2['shipping']['shipping_city'] = $fields['shipping']['shipping_city'];
+    $fields2['shipping']['shipping_postcode'] = $fields['shipping']['shipping_postcode'];
+
+    $fields2['order']['order_comments'] = $fields['order']['order_comments'];
+
+    // Add full width Classes and Clears to Adjustments
+    $fields2['billing']['billing_email'] = array(
+		  'label'     => __('Email', 'woocommerce'),
+	    'required'  => true,
+	    'class'     => array('form-row-wide'),
+	    'clear'     => true
+    );
+
+    $fields2['billing']['billing_company'] = array(
+		  'label'     => __('Company', 'woocommerce'),
+	    'required'  => true,
+	    'class'     => array('form-row-wide'),
+	    'clear'     => false
+    );
+
+    $fields2['billing']['billing_phone'] = array(
+		  'label'     => __('Phone', 'woocommerce'),
+	    'required'  => false,
+	    'class'     => array('form-row-wide'),
+	    'clear'     => true
+    );
+
+    $fields2['shipping']['shipping_company'] = array(
+		  'label'     => __('Company', 'woocommerce'),
+	    'required'  => true,
+	    'class'     => array('form-row-wide'),
+      'clear'     => true
+    );
+
+    return $fields2;
+}

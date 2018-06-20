@@ -41,6 +41,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	);
 ?></p>
 
+<div class="user-blocade">
+
+</div>
+
+<div class="user-order-info">
+
+</div>
+
 <?php
 	/**
 	 * My Account dashboard.

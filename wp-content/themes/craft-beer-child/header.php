@@ -35,7 +35,7 @@
 echo boldthemes_preloader_html(); ?>
 
 <div class="btPageWrap" id="top">
-
+	<?php if(is_user_logged_in()): ?>
     <div class="btVerticalHeaderTop">
 		<?php if ( has_nav_menu( 'primary' ) ) { ?>
 		<div class="btVerticalMenuTrigger"><?php echo boldthemes_get_icon_html( array( "icon" => "fa_f0c9", "url" => "#" ) ); ?></div>
@@ -48,6 +48,8 @@ echo boldthemes_preloader_html(); ?>
 			</div><!-- /logo -->
 		</div><!-- /btLogoArea -->
 	</div>
+<?php endif;?>
+	<?php if(is_user_logged_in()): ?>
 	<header class="mainHeader btClear <?php echo esc_attr( $header_extra_class ); ?>">
 		<div class="mainHeaderInner">
 			<?php echo boldthemes_top_bar_html( 'top' ); ?>
@@ -69,6 +71,19 @@ echo boldthemes_preloader_html(); ?>
 						}
 					?>
 					<div class="menuPort">
+						<div class="cart_myaccount_container">
+								<div class="cart_myaccount">
+									<a href="<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') );?>"><i class="icon-user"></i></a>
+									<a href="<?php echo wc_get_cart_url() ?>">
+										<i class="icon-basket"></i>
+										<?php if(WC()->cart->get_cart_contents_count() > 0 && !is_cart()): ?>
+											<div class="number_of_items_in_cart">
+												<?php echo WC()->cart->get_cart_contents_count(); ?>
+											</div>
+										<?php endif; ?>
+									</a>
+								</div>
+						</div>
 						<?php echo boldthemes_top_bar_html( 'menu' ); ?>
 						<nav>
 							<?php boldthemes_nav_menu(); ?>
@@ -78,6 +93,7 @@ echo boldthemes_preloader_html(); ?>
 			</div><!-- /menuHolder / btBelowLogoArea -->
 		</div><!-- / inner header for scrolling -->
     </header><!-- /.mainHeader -->
+	<?php endif; ?>
 	<div class="btContentWrap btClear">
 		<?php
 		$hide_headline = boldthemes_get_option( 'hide_headline' );

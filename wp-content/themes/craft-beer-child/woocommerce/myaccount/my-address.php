@@ -46,7 +46,6 @@ $col    = 1;
 <?php endif; ?>
 
 <?php foreach ( $get_addresses as $name => $title ) : ?>
-
 	<div class="u-column<?php echo ( ( $col = $col * -1 ) < 0 ) ? 1 : 2; ?> col-<?php echo ( ( $oldcol = $oldcol * -1 ) < 0 ) ? 1 : 2; ?> woocommerce-Address">
 		<header class="woocommerce-Address-title title">
 			<h3><?php echo $title; ?></h3>

@@ -471,3 +471,110 @@ div.product div.images .woocommerce-product-gallery__wrapper .woocommerce-produc
 .woocommerce-additional-fields{
   margin-top: 50px;
 }
+
+/* Login/Register */
+
+.woocommerce-form-login, .woocommerce-form-register{
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 100px;
+    padding-top: 50px;
+}
+
+h2.login-title{
+    text-align: center;
+}
+
+button[name="login"], button[name="register"]{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-logo{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 25px;
+}
+
+.login-logo img{
+    display:block;
+    height: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.login-text{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.login-options{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.login-option, #open-login{
+  color: #B28564;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 730px){
+  .woocommerce-form-login, .woocommerce-form-register{
+      width: 70%;
+    }
+}
+
+@media screen and (min-width: 900px){
+  .woocommerce-form-login, .woocommerce-form-register{
+      width: 50%;
+    }
+}
+
+/* Cart and my account */
+.cart_myaccount_container{
+
+    position: absolute;
+    left: 0;
+    top:0;
+    bottom:0;
+    width: 100%;
+}
+
+.cart_myaccount{
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    font-size: 24px;
+    padding-right: 30px;
+}
+
+.cart_myaccount i{
+    padding: 20px;
+}
+
+.cart_myaccount a:first-child{
+    border-right: solid 1px rgba(0,0,0, .1);
+}
+
+.number_of_items_in_cart{
+    top: 2px;
+    right:10px;
+    position: absolute;
+    background: #B28564;
+    color: white;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    vertical-align: center;
+    border-radius: 50%;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.cart_myaccount a{
+    position: relative;
+    display: block;
+}

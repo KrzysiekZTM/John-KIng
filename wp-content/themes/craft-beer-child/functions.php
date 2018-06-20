@@ -94,26 +94,85 @@ function add_logo_to_login(){
 
 add_action('woocommerce_before_customer_login_form', 'add_logo_to_login');
 
+function jk_custom_billing_fields(){
+  return apply_filters('jk_account_fields', array(
+    'billing_nip' => array(
+      'label'     => __('NIP', 'woocommerce'),
+      'placeholder'   => _x('NIP', 'placeholder', 'woocommerce'),
+      'required'  => true,
+      'class'     => array('form-row-wide'),
+      'clear'     => false,
+      'type'      => 'number',
+      'class'     => array('nip_number'),
+    ),
+  ));
+}
 
+function jk_reorder_billing_fields($fields){
+  $fields2['billing_email'] = $fields['billing_email'];
+  $fields2['billing_first_name'] = $fields['billing_first_name'];
+  $fields2['billing_last_name'] = $fields['billing_last_name'];
+  $fields2['billing_company'] = $fields['billing_company'];
+  $fields2['billing_nip'] = $fields['billing_nip'];
+  $fields2['billing_country'] = $fields['billing_country'];
+  $fields2['billing_address_1'] = $fields['billing_address_1'];
+  $fields2['billing_address_2'] = $fields['billing_address_2'];
+  $fields2['billing_city'] = $fields['billing_city'];
+  $fields2['billing_postcode'] = $fields['billing_postcode'];
+  $fields2['billing_phone'] = $fields['billing_phone'];
 
-// Our hooked in function - $fields is passed via the filter!
-function add_nip_field( $fields ) {
-  $fields['billing']['billing_nip'] = array(
-    'label'     => __('NIP', 'woocommerce'),
-    'placeholder'   => _x('NIP', 'placeholder', 'woocommerce'),
-    'required'  => true,
-    'class'     => array('form-row-wide'),
-    'clear'     => true
-  );
+  return $fields2;
+
+}
+
+function jk_add_custom_billing_field_to_checkout( $fields ) {
+  $custom_billing_fields = jk_get_billing_fields();
+
+  foreach($custom_billing_fields as $key => $val){
+    $fields['billing'][$key] = $val;
+  }
   return $fields;
 }
+add_filter( 'woocommerce_checkout_fields' , 'jk_add_custom_billing_field_to_checkout' );
+
+function jk_add_custom_billing_fields( $fields ) {
+
+    $user_id = get_current_user_id();
+    $user    = get_userdata( $user_id );
+
+    if ( !$user ) return;
+
+    foreach(jk_custom_billing_fields() as $key => $val){
+      $fields[$key] = $val;
+      $fields[$key]['default'] = get_user_meta( $user_id, $key, true ); // assing default value if any
+    }
+    $fields['billing_company']['required'] = true;
+    unset($fields['billing_state']);
+
+    return jk_reorder_billing_fields($fields);
+}
+add_filter('woocommerce_billing_fields', 'jk_add_custom_billing_fields');
+
+function jk_save_custom_billing_fields($customer_id){
+  foreach(jk_custom_billing_fields() as $key=>$val){
+    if (isset($_POST[$key])) {
+        update_user_meta($customer_id, $key, sanitize_text_field($_POST[$key]));
+    }
+  }
+}
+
+add_action('woocommerce_save_account_details', 'text_domain_woo_save_reg_form_fields');
+
+
+
 
 function my_custom_checkout_field_display_admin_order_meta($order){
     echo '<p><strong>'.__('NIP From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_billing_nip', true ) . '</p>';
 }
 
 // Hook in
-add_filter( 'woocommerce_checkout_fields' , 'add_nip_field' );
+
+
 
 
 function extra_form_fields() {
@@ -232,13 +291,12 @@ function text_domain_woo_save_reg_form_fields($customer_id) {
     }
     // Company
     if (isset($_POST['billing_company'])) {
-        update_user_meta($customer_id, 'address_2', sanitize_text_field($_POST['billing_company']));
+        update_user_meta($customer_id, 'company', sanitize_text_field($_POST['billing_company']));
         update_user_meta($customer_id, 'billing_company', sanitize_text_field($_POST['billing_company']));
         update_user_meta($customer_id, 'shipping_company', sanitize_text_field($_POST['billing_company']));
     }
     // VAT number
     if (isset($_POST['billing_nip'])) {
-        update_user_meta($customer_id, 'address_2', sanitize_text_field($_POST['billing_nip']));
         update_user_meta($customer_id, 'billing_nip', sanitize_text_field($_POST['billing_nip']));
     }
     // City and postcode
@@ -325,4 +383,45 @@ function reorder_woo_fields($fields) {
     );
 
     return $fields2;
+}
+
+
+
+// Test
+
+// (1) Printing the Billing Address on My Account
+add_filter( 'woocommerce_my_account_my_address_formatted_address', 'custom_my_account_my_address_formatted_address', 10, 3 );
+function custom_my_account_my_address_formatted_address( $fields, $customer_id, $type ) {
+
+  foreach(jk_custom_billing_fields() as $key=>$val){
+    if ( $type == 'billing' ) {
+  		$fields[$key] = get_user_meta( $customer_id, $key, true );
+  	}
+  }
+
+	return $fields;
+}
+
+add_filter( 'woocommerce_formatted_address_replacements', 'custom_formatted_address_replacements', 10, 2 );
+function custom_formatted_address_replacements( $address, $args ) {
+  foreach(jk_custom_billing_fields() as $key=>$val){
+    $address['{'.$key.'}'] = '';
+    $address['{'.$key.'_upper}']= '';
+
+    if ( ! empty( $args[''.$key.''] ) ) {
+      $address['{'.$key.'}'] = $args[$key];
+      $address['{'.$key.'_upper}'] = strtoupper($args[$key]);
+    }
+  }
+	return $address;
+}
+
+add_filter( 'woocommerce_localisation_address_formats', 'custom_localisation_address_format' );
+function custom_localisation_address_format( $formats ) {
+  foreach(jk_custom_billing_fields() as $key=>$val){
+    $string_to_add = "\nNIP: {".$key."_upper}";
+  }
+	$formats['PL'] = "{name}\n{company}".$string_to_add."\n{address_1}\n{address_2}\n{postcode} {city}\n{state}\n{country}";
+
+	return $formats;
 }

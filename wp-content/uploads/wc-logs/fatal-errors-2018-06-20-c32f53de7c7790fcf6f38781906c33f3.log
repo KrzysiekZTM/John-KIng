@@ -1,0 +1,22 @@
+2018-06-20T14:16:38+00:00 CRITICAL Uncaught Error: Call to undefined function applay_filters() in D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\functions.php:108
+Stack trace:
+#0 D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\functions.php(99): jk_get_account_fields()
+#1 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(286): add_nip_field(Array)
+#2 D:\xampp\htdocs\john-king\wp-includes\plugin.php(203): WP_Hook->apply_filters(Array, Array)
+#3 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(242): apply_filters('woocommerce_che...', Array)
+#4 D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\woocommerce\checkout\form-checkout.php(37): WC_Checkout->get_checkout_fields()
+#5 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-core-functions.php(210): include('D:\\xampp\\htdocs...')
+#6 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-checkout.php(250): wc_get_template('checkout/form-c...', Array)
+#7 D:\
+
+2018-06-20T14:17:24+00:00 CRITICAL Uncaught Error: Call to undefined function aapply_filters() in D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\functions.php:108
+Stack trace:
+#0 D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\functions.php(99): jk_get_account_fields()
+#1 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(286): add_nip_field(Array)
+#2 D:\xampp\htdocs\john-king\wp-includes\plugin.php(203): WP_Hook->apply_filters(Array, Array)
+#3 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(242): apply_filters('woocommerce_che...', Array)
+#4 D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\woocommerce\checkout\form-checkout.php(37): WC_Checkout->get_checkout_fields()
+#5 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-core-functions.php(210): include('D:\\xampp\\htdocs...')
+#6 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-checkout.php(250): wc_get_template('checkout/form-c...', Array)
+#7 D:\
+

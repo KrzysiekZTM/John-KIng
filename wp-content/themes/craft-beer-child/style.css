@@ -167,7 +167,7 @@ ul.woof_list{
 }
 
 .products ul li.product .btWooShopLoopItemInner .price, ul.products li.product .btWooShopLoopItemInner .price {
-  padding: .91em !important;
+  padding: .9em !important;
 }
 
 /* Typo */
@@ -577,4 +577,64 @@ button[name="login"], button[name="register"]{
 .cart_myaccount a{
     position: relative;
     display: block;
+}
+
+/* wishlist */
+
+.tinvwl_add_to_wishlist_button{
+    position: absolute !important;
+    bottom: 75px;
+    right: -3px;
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    border-radius: 50%;
+    border: 1px solid #B28564 !important;
+    background-color: white !important;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.tinvwl_add_to_wishlist_button:hover{
+  background-color: #B28564 !important;
+}
+
+.tinv-wraper{
+    padding-top: 0;
+}
+
+.tinv-wishlist .product-remove button{
+  height: 20px;
+  width: 20px;
+  text-indent: 0;
+  padding: 0 !important;
+  text-align: center;
+  font-size: .8em;
+  text-transform: lowercase !important;
+}
+
+.tinv-wishlist .product-remove button:hover{
+  background-color: #B28564 !important;
+  color: white !important;
+}
+
+.tinvwl-input-group .form-control{
+  height: auto !important;
+}
+
+button[name="tinvwl-add-to-cart"]{
+  line-height: 1;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 1em 1.2em;
+  font-size: .9em;
+  cursor: pointer;
+  background-color: transparent;
+  color: #B28564 !important;
+  font-family: Roboto Condensed;
+}
+
+button[name="tinvwl-add-to-cart"]:hover, button[name="tinvwl-action"]:hover{
+  background-color: #B28564 !important;
+  color: white !important;
 }

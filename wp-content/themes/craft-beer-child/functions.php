@@ -126,7 +126,7 @@ function jk_reorder_billing_fields($fields){
 }
 
 function jk_add_custom_billing_field_to_checkout( $fields ) {
-  $custom_billing_fields = jk_get_billing_fields();
+  $custom_billing_fields = jk_custom_billing_fields();
 
   foreach($custom_billing_fields as $key => $val){
     $fields['billing'][$key] = $val;
@@ -425,3 +425,43 @@ function custom_localisation_address_format( $formats ) {
 
 	return $formats;
 }
+
+add_filter( 'woocommerce_admin_billing_fields', 'jk_custom_admin_billing_fields' );
+function jk_custom_admin_billing_fields( $fields ) {
+  foreach(jk_custom_billing_fields() as $key=>$val){
+    $fields[$key] = array(
+  		'label' => __( $val['label'], 'john-king' ),
+  		'show'  => true,
+  	);
+  }
+
+	return $fields;
+}
+
+add_filter( 'woocommerce_found_customer_details', 'custom_found_customer_details' );
+function custom_found_customer_details( $customer_data ) {
+  foreach(jk_custom_billing_fields() as $key=>$val){
+    $customer_data[$key] = get_user_meta( $_POST['user_id'], $key, true );
+  }
+	return $customer_data;
+}
+
+add_filter( 'woocommerce_customer_meta_fields', 'custom_customer_meta_fields' );
+function custom_customer_meta_fields( $fields ) {
+  foreach(jk_custom_billing_fields() as $key=>$val){
+    $new[$key] = array(
+  		'label'       => __( $val['label'], 'john-king' ),
+      'description' => ""
+  	);
+  }
+
+  $keys = array_keys($fields['billing']['fields']);
+  $search = array_search('billing_company', $keys);
+  $sliced = array_slice($fields['billing']['fields'], 0, $search+1 );
+  $sliced2 = array_slice($fields['billing']['fields'], $search+1 );
+  $fields['billing']['fields'] = array_merge($sliced, $new, $sliced2);
+
+  return $fields;
+}
+
+// Wish list

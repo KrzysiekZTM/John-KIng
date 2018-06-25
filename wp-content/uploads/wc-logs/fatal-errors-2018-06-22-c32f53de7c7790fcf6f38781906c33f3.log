@@ -1,0 +1,22 @@
+2018-06-22T09:58:00+00:00 CRITICAL Maximum execution time of 30 seconds exceeded
+
+2018-06-22T10:15:32+00:00 CRITICAL Uncaught Error: Call to undefined function jk_get_billing_fields() in D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\functions.php:129
+Stack trace:
+#0 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(286): jk_add_custom_billing_field_to_checkout(Array)
+#1 D:\xampp\htdocs\john-king\wp-includes\plugin.php(203): WP_Hook->apply_filters(Array, Array)
+#2 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(242): apply_filters('woocommerce_che...', Array)
+#3 D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\woocommerce\checkout\form-checkout.php(37): WC_Checkout->get_checkout_fields()
+#4 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-core-functions.php(210): include('D:\\xampp\\htdocs...')
+#5 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-checkout.php(250): wc_get_template('checkout/form-c...', Array)
+#6 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\shortcodes\
+
+2018-06-22T19:37:00+00:00 CRITICAL Uncaught Error: Call to undefined function jk_get_billing_fields() in D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\functions.php:129
+Stack trace:
+#0 D:\xampp\htdocs\john-king\wp-includes\class-wp-hook.php(286): jk_add_custom_billing_field_to_checkout(Array)
+#1 D:\xampp\htdocs\john-king\wp-includes\plugin.php(203): WP_Hook->apply_filters(Array, Array)
+#2 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\class-wc-checkout.php(242): apply_filters('woocommerce_che...', Array)
+#3 D:\xampp\htdocs\john-king\wp-content\themes\craft-beer-child\woocommerce\checkout\form-checkout.php(37): WC_Checkout->get_checkout_fields()
+#4 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\wc-core-functions.php(210): include('D:\\xampp\\htdocs...')
+#5 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-checkout.php(250): wc_get_template('checkout/form-c...', Array)
+#6 D:\xampp\htdocs\john-king\wp-content\plugins\woocommerce\includes\shortcodes\
+

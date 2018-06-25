@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 
-
+echo do_shortcode("[ti_wishlists_addtowishlist loop=yes]");
 echo apply_filters( 'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
 	sprintf( '<a href="%s" data-quantity="%s" class="%s" %s>%s</a>',
 		esc_url( $product->add_to_cart_url() ),
